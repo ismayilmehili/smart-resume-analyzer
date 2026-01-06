@@ -1,0 +1,10 @@
+flask
+python-dotenv
+pymongo[srv]
+dnspython
+certifi
+sentence-transformers
+torch
+pypdf
+python-docx
+google-genai

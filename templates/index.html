@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Resume Analyzer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo">🧠</div>
+        <div>
+          <div class="title">Smart Resume Analyzer + AI Job Matcher</div>
+          <div class="subtitle">Upload CV → Paste JD → AI Fit Analysis → History → Chat</div>
+        </div>
+      </div>
+
+      <div class="right-head">
+        <div class="status-pill" id="backendStatus">Checking backend…</div>
+        <button class="btn ghost" id="btnScrollTop">↑ Top</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <!-- LEFT: Inputs -->
+    <section class="card">
+      <div class="card-title">
+        <h2>Setup</h2>
+        <span class="muted">Replace CV/JD anytime (it overwrites the previous ones)</span>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h3>1) Upload CV</h3>
+          <span class="badge" id="cvBadge">Not uploaded</span>
+        </div>
+
+        <div class="row">
+          <input id="cvFile" type="file" accept=".pdf,.docx,.txt" />
+          <button class="btn primary" id="btnUploadCV">Upload</button>
+        </div>
+
+        <div class="toast" id="cvToast">Waiting for upload…</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="block">
+        <div class="block-head">
+          <h3>2) Job Description</h3>
+          <span class="badge" id="jdBadge">Not saved</span>
+        </div>
+
+        <textarea id="jdText" placeholder="Paste job description here…"></textarea>
+
+        <div class="row">
+          <button class="btn primary" id="btnUpdateJD">Save JD</button>
+          <button class="btn" id="btnClearJD">Clear text</button>
+        </div>
+
+        <div class="toast" id="jdToast">Waiting for job description…</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="block">
+        <div class="block-head">
+          <h3>3) AI Fit Analysis</h3>
+          <span class="muted">Runs CV vs JD + saves to history</span>
+        </div>
+
+        <div class="row">
+          <button class="btn primary" id="btnAnalyze">Run Analysis</button>
+          <button class="btn ghost" id="btnOpenHistory">View History →</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <span class="chip">Latest report</span>
+            <span class="mini" id="analysisMeta"></span>
+          </div>
+
+          <div id="analysisNice" class="report"></div>
+          <pre class="output hidden" id="analysisOut"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Chat + History -->
+    <section class="stack">
+      <!-- Chat -->
+      <section class="card">
+        <div class="card-title">
+          <h2>Chat Assistant</h2>
+          <span class="muted">Ask anything about your CV & the job description</span>
+        </div>
+
+        <div id="chatOut" class="chat"></div>
+
+        <div class="chatbar">
+          <input id="chatInput" type="text" placeholder="Type your message… (Enter to send)" />
+          <button class="btn primary" id="btnSendChat">Send</button>
+        </div>
+
+        <div class="mini" id="chatHint"></div>
+      </section>
+
+      <!-- History -->
+      <section class="card" id="historySection">
+        <div class="card-title row between">
+          <div>
+            <h2>History</h2>
+            <div class="muted">Past AI analyses saved to MongoDB</div>
+          </div>
+
+          <div class="row">
+            <button class="btn" id="btnRefreshHistory">Refresh</button>
+            <button class="btn danger" id="btnClearHistory">Delete All</button>
+          </div>
+        </div>
+
+        <div id="historyList" class="history"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="muted">MVP • Flask + MongoDB Atlas + Vector Search + Gemini</span>
+      <span class="muted">Tip: keep questions short to save API quota</span>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
