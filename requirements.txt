@@ -8,3 +8,4 @@ torch
 pypdf
 python-docx
 google-genai
+gunicorn
